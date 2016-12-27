@@ -31,7 +31,7 @@
     });
 
     $.getScript("https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js", function() {
-        $('head').append('<link rel="stylesheet" href="./altmetric-overrides.css" type="text/css" />')
+        $('head').append('<link rel="stylesheet" href="./css-overrides.css" type="text/css" />')
     });
 
     $('head').append('<link rel="stylesheet" href="genericons/genericons.css" type="text/css" />');
@@ -104,11 +104,9 @@ Bachelor of Mathematics, University of Waterloo
 
 Assistant Professor
  : Simon Fraser University
-  __2014 – present__
 
-Research Associate 
+Associate Faculty Director
  : Public Knowledge Project
-  __2007 - present__  
 
 -------
 
@@ -150,11 +148,11 @@ __2014, 2015__
 
 #### Section Leader
 : STS1: The Public Life of Science Technology & Society
- __Winter 2013__
+ __2013__
 
 #### Workshops
 : Web Scraping in Python, Stanford University
- __Summer 2013__
+ __2013__
  
 : Latin American Open Access Publishing Workshop Series, nine countries
  __2007-2010__
@@ -164,7 +162,7 @@ __2014, 2015__
 ### Research Projects {#funding} 
 
 #### Current 
-: **Alperin, J.P.** et al. *Understanding Societal Impact of Research through Social Media*. SSHRC Insight Grant. *total award: C$217,401*
+: **Alperin, J.P.** et al. *Understanding Societal Impact of Research through Social Media*. Social Science and Humanities Research Council (SSHRC). *total award: C$217,401*
 __2016-2019__
 
 : **Alperin, J.P.**, et al. *Assessing the Value of Openness in Faculty Review and Promotion*. Open Society Foundations. *total award: U$50,000*
@@ -173,34 +171,34 @@ __2016-2017__
 : Reilly, K. *&* **Alperin, J.P.**. *Engaging Publics in Openness Initiatives*. SIRCA-IDRC. *total award: U$15,950*
 __2015-2016__
 
-: Larivière, V. et al. (Collaborator). Open Science: Social Science *&* Humanities Cyberinfrastructure, *Canada Foundation for Innovation (CFI)*. *total award: C$4,340,315* 
+: Larivière, V. et al. (Collaborator). *Open Science: Social Science & Humanities Cyberinfrastructure*, Canada Foundation for Innovation (CFI). *total award: C$4,340,315* 
 __2016-2018__
 
-: Willinsky, J., Garnett, A. *&* **Alperin, J.P.**. Smarter Scholarly Texts. *MediaX (Stanford University)*. *total award: U$250,000*
+: Willinsky, J., Garnett, A. *&* **Alperin, J.P.**. *Smarter Scholarly Texts*. MediaX (Stanford University). *total award: U$250,000*
 __2012-2017__
 
 #### Past 
-: **Alpern, J.P.** *&* Nicholson, J. Incentivizing Open Peer-Review. *OpenAire*, *total award: €27,600*
+: **Alpern, J.P.** *&* Nicholson, J. *Incentivizing Open Peer-Review*. OpenAire, *total award: €27,600*
 __2015-2016__
 
-: **Alperin, J.P.** & Babini, D. Open Access indicators: Assessing growth and use of OA resources from developing regions. *UNESCO*. *total award: U$50,000*
+: Owen, B., Garnett, A., **Alperin, J.P.**, *&* Stranack, K. *Smarter Texts for Advancing Public Knowledge*. Canadian Internet Registration Authority (CIRA). *total award: C$75,000*
+__2015-2016__
+
+: **Alperin, J.P.** & Babini, D. *Open Access indicators: Assessing growth and use of OA resources from developing regions*. UNESCO. *total award: U$50,000*
 __2013-2014__
 
-: Willinsky, J., Fischman, G.E., *&* **Alperin. J.P.**. Quality in the Open Scholarly Communication of Latin America. *International Development Research Centre (IDRC)*. *total award: U$350,000*
+: Willinsky, J., Fischman, G.E., *&* **Alperin. J.P.**. *Quality in the Open Scholarly Communication of Latin America*. International Development Research Centre (IDRC). *total award: U$350,000*
 __2011-2014__
 
-: Willinsky, J., Fischman, G.E., *&* **Alperin. J.P.**. Strengthening Scholarly Communication in Latin America. *International Development Research Centre (IDRC)*. *total award: U$50,000* 
+: Willinsky, J., Fischman, G.E., *&* **Alperin. J.P.**. *Strengthening Scholarly Communication in Latin America*. International Development Research Centre (IDRC). *total award: U$50,000* 
 __2007-2009__
-
-: Owen, B., Garnett, A., **Alperin, J.P.**, *&* Stranack, K. Smarter Texts for Advancing Public Knowledge. *Canadian Internet Registration Authority (CIRA)*. *total award: C$75,000*
-__2015-2016__
 
 #### Teaching
 
-: **Alperin, J.P.** Encouraging and Supporting Discussions Through Online Annotations. *The Institute for the Study of Teaching and Learning in the Disciplines (SFU)*. *total award: C$5,000*
+: **Alperin, J.P.** *Encouraging and Supporting Discussions Through Online Annotations*. The Institute for the Study of Teaching and Learning in the Disciplines, SFU. *total award: C$5,000*
 __2016__
 
-: **Alperin, J.P.** Building Foundations for Graduate Studies in Publishing. *Dean of Graduate Studies (SFU)*. *total award: C$5,000*
+: **Alperin, J.P.** *Building Foundations for Graduate Studies in Publishing*. Dean of Graduate Studies, SFU. *total award: C$5,000*
 __2016__
 
 ------
@@ -268,6 +266,9 @@ __2013__
 __2012__
 
 #### Other Publications
+: **Alperin, J. P.** Motivating Open Practices Through Faculty Review and Promotion. *OOO Canada Blog* [link](http://www.ooocanada.ca/webinar_how_to_make_research_open_101)
+__2016__
+
 : Nicholson, J. *&* **Alperin, J.P.** A brief survey on peer review in scholarly communication. *The Winnower* [link](https://thewinnower.com/papers/4659-a-brief-survey-on-peer-review-in-scholarly-communication)
 __2016__
 
@@ -286,18 +287,33 @@ __2014__
 : **Alperin, J.P.** Altmetrics could enable scholarship from developing countries to receive due recognition. *LSE Impact Blog.* [link](http://blogs.lse.ac.uk/impactofsocialsciences/2014/03/10/altmetrics-for-developing-regions/)
 __2014__
 
-: **Alperin. J.P.** Academic Publishing in a Global Context: The Politics and Practices of Publishing in English (book review). *Journal of Scholarly Publishing*, 42 (4), 545-549. [doi.org/10.1353/scp.2011.0034](http://doi.org/10.1353/scp.2011.0034)
+: **Alperin. J.P.** Academic Writing in a Global Context: The Politics and Practices of Publishing in English (book review). *Journal of Scholarly Publishing*, 42 (4), 545-549. [doi.org/10.1353/scp.2011.0034](http://doi.org/10.1353/scp.2011.0034)
 __2011__
 
 ------
 
 ### Presentations {#presentations}
-#### Invited Presenations 
+#### Invited Presentations 
+: **Alperin, J.P.**. ¿Que impacto miden las métricas alternativas en publicación científica?. *Aprender3c.* Online. 
+__Nov. 28, 2016__
+
+: **Alperin, J.P.** Ferramentas do PKP para publicação científica em acesso aberto. *Annual Meeting of the Brazilian Scientific Editors Association.* Sao Paolo, Brazil. 
+__Nov. 7, 2016__
+
+: **Alperin, J.P.** ¿Quien lee las revistas de acceso abierto de América Latina? *Congreso INFO 2016, Foro de Acceso Abierto.* Havana, Cuba. 
+__Nov. 3, 2016__
+
+: **Alperin, J.P.** Las limitaciones de los indicadores bibliometricos y las oportunidades del acceso abierto en América Latina. *Seminario el Nuevo Orden Academico: Pontificia Universidad Católica del Peru.* Lima, Peru. 
+__Sep. 1, 2016__
+
 : **Alperin, J.P.** Inherent Tensions in Adopting New Scholarly Practices. *61st Seminar on the Acquisition of Latin American Library Materials.* Charlottesville, USA. [slides](https://speakerdeck.com/jalperin/inherent-tensions-in-adopting-new-scholarly-practices)
 __May 9, 2016__
 
 : **Alperin, J.P.** Research is also for non-scholars: Lessons from Latin America. *FORCE16.* Portland, USA [doi.org/10.6084/m9.figshare.3187551](https://dx.doi.org/10.6084/m9.figshare.3187551.v1) [video](https://youtu.be/nO0f8bHAYqc?t=1674)
 __April 19, 2016__
+
+: **Alperin, J.P.** ¿Who benefits from Latin American research? *National Autonomous University of Mexico.* Mexico City, Mexico.
+__Feb. 25, 2016__
 
 : **Alperin, J.P.** Altmetrics: The Basics, the Research, and the Users. *Beedie Business School, Simon Fraser University.* Vancouver, Canada. 
 __Feb. 10, 2016__
@@ -351,8 +367,11 @@ __June 10, 2009__
 __Sep. 15, 2008__
 
 #### Peer-Reviewed Conference Presentations
+: **Alperin, J.P.**, Stranack, K. *&* Garnett, A. On the Peripheries of Scholarly Infrastructure: A look at the Journals Using Open Journal Systems. *21st International Conference on Science and Technology Indicators (STI Conference 2016)*. Valencia, Spain. [slides](https://speakerdeck.com/jalperin/sti-ojsstats)
+__Sep. 14, 2016__
+
 : **Alperin, J.P.** Moving beyond counts: A method for surveying Twitter users. *Altmetrics15 Workshop*, *Altmetrics Conference*. Amsterdam, Netherlands. [link](http://altmetrics.org/altmetrics15/alperin/) 
-__Oct 9, 2015__
+__Oct. 9, 2015__
 
 : **Alperin, J.P.** Evolving altmetrics to capture impact outside the academy. *2:AM Altmetrics Conference.* Amsterdam, Netherlands. [slides](https://speakerdeck.com/jalperin/evolving-altmetrics-to-capture-impact-outside-the-academy)
 __Oct. 7, 2015__
@@ -398,15 +417,12 @@ __2012 - 2013__
 ### Student Supervision {#supervision .singlespace}
 #### Post-doctoral Supervision
 : Kyle Siler
-__2016 – present__
+__2016 - present__
 
 : Germana Barata
-__2016 – present__
+__2016 - present__
 
 #### Senior Supervisor
-: Wan, Linlin. *Copyleft and creativity*. Communications Double Major. 
-__in progress__
-
 : Sellars, Stacey. *Non-linear Digital Storytelling in the National Film Board of Canada's Interactive Projects*. Master in Publishing. SFU.
 __in progress__
 
@@ -415,6 +431,9 @@ __in progress__
 
 : Oliviera, Joshua. *-*. Master in Publishing. SFU.
 __in progress__
+
+: Wan, Linlin. *Copyleft and creativity*. Communications Double Major. 
+__2016__
 
 : Pouyanne, Sophie. *Designing a Non-linear, Academic Web Book with Scalar*. Master in Publishing. SFU.
 __2016__
@@ -465,9 +484,13 @@ __2014 - present__
 *XXI International Conference On Science And Technology Indicators*, Valencia, Spain
 __2016__
 
+: Scientific Committee:
+*IV Open Access Forum (INFO2016)*, Havana, Cuba
+__2016__
+
 : Application Review Team: 
 *OpenCon: The student and early career academic professional conference on Open Access, Open Education, and Open Data*, Brussels, Belgium
-__2015__
+__2015, 2016__
 
 : Organizing Committee: 
 *OpenCon: The student and early career
@@ -490,9 +513,7 @@ __2010 - present__
 __2008 - present__
 
 #### Reviewer
-: *Publications*, *Aslib Proceedings, Scientometrics, Scholarly and Research
-Communication, Palabra Clave, Education Policy Analysis Archives,
-Revista Facultad de Odontología*
+: *Nature*, *Information Research*, *Publications*, *Aslib Proceedings (2)*, *Scientometrics*, *Scholarly and Research Communication (4)*, *Palabra Clave (2)*, *Education Policy Analysis Archives*, *Revista Facultad de Odontología*
 
 #### Memberships
 : SPARC Student Advisory Group, CrossRef DOI Event Tracker Committee, OOO Canada
@@ -556,11 +577,4 @@ __May 15, 2012__
 : *Stanford Daily.*  Freeing Knowledge. [link](http://www.stanforddaily.com/2011/01/26/freeing-knowledge/)
 __Jan. 26, 2011__
 
-
 ------ 
-
-### Footer {#footer}
-
-Juan Pablo Alperin — juan@alperin.ca — [http://alperin.ca/cv/alperinCV.html](http://alperin.ca/cv/alperinCV.html)
-
-------
