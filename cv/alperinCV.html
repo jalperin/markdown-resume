@@ -656,6 +656,12 @@ dl dd p {
     font-weight: bold;
     text-align: right;
   }
+  #funding + dl dd em:last-of-type {
+    float: right;
+    font-weight: bold;
+    font-style: normal;
+    font-size: .9em;
+  }
   ol li:nth-child(4):nth-last-child(5n+2) {
     border-top: none;
   }
@@ -900,9 +906,8 @@ dl dd p {
       $(element).wrapInner('<p></p>');
     });
 
-    $.getScript('./stats-ir.js', function() {
-      article_stats = data[0]['stats']['articles'];
-
+    $.getJSON('./scholar.json', function(article_stats) {
+      article_ids = Object.keys(article_stats);
       $('a').each(function(i, element) { 
 
         var href = $(element)[0].getAttribute('href');
@@ -912,13 +917,14 @@ dl dd p {
           doi = doi.substr(doi.indexOf('/') + 1);  // strip out doi.org/ 
           $($(element)[0]).closest('dd').append('<div data-badge-popover="right" data-badge-type="2" data-doi="' + doi + '" data-hide-no-mentions="true" class="altmetric-embed"></div>');
             metrics = true;
-        } else if (href.indexOf('scholar.google.com') > 0) {
-          var gsid = href.substring(href.indexOf('cites=') + 6)
-          for (var i=0; i<article_stats.length; i++) {
-            if (article_stats[i][0].indexOf(gsid) > 0) {
-              $($(element)[0]).closest('dd').append('<div class="google-scholar"><a href="' + href +'" ><img src="scholar_logo_long.png" align="left" /></a><span class="metricbubble">' + article_stats[i][1] + '</span></div>');
-              $(element).remove()
-            }
+        } else if (href.indexOf('scholar.google') > -1) {
+          var gsid = href.substring(href.indexOf('cites=') + 6);
+          if (article_ids.indexOf(gsid) > -1  ) {
+            $($(element)[0]).closest('dd').append('<div class="google-scholar"><a href="' + href +'" ><img src="scholar_logo_long.png" align="left" /></a><span class="metricbubble">' + article_stats[gsid] + '</span></div>'
+              );
+            $(element).remove()
+          } else {
+            console.log("Not found, Google Scholar: " + gsid)
           }
         } 
       });  
@@ -1004,7 +1010,7 @@ dl dd p {
 <dt>Assistant Professor</dt>
 <dd>Simon Fraser University</dd>
 
-<dt>Associate Faculty Director</dt>
+<dt>Associate Faculty Director of Research</dt>
 <dd>Public Knowledge Project</dd>
 </dl>
 
@@ -1032,7 +1038,7 @@ dl dd p {
 <dt><h4>Seminar Courses</h4></dt>
 <dd>
 <p>PUB802: Technology and the Evolving Forms of Publishing, Graduate <a href="http://tkbr.ccsp.sfu.ca/pub802">link</a>
-<strong>2015, 2016</strong></p>
+<strong>2015, 2016, 2017</strong></p>
 </dd>
 
 <dd>PUB401: Technology and the Evolving Book, Undergraduate  <a href="http://tkbr.ccsp.sfu.ca/pub401">link</a>
@@ -1041,7 +1047,7 @@ dl dd p {
 <dt><h4>Project Courses</h4></dt>
 <dd>
 <p>PUB607: Publishing Technology Project, Graduate <a href="http://tkbr.ccsp.sfu.ca/pub607">link</a>
-<strong>2014, 2015, 2016</strong></p>
+<strong>2014, 2015, 2016, 2017</strong></p>
 </dd>
 
 <dt><h4>Lecture Courses</h4></dt>
@@ -1050,7 +1056,12 @@ dl dd p {
 <strong>2014</strong></p>
 </dd>
 
-<dt><h4>Guest Lectures</h4></dt>
+<dt><h4>Public Lectures</h4></dt>
+<dd>
+<p><em>Does our research serve the public, or only ourselves?</em>, University of Illinois Urbana-Champaign <a href="http://illinois.edu/calendar/detail/598?eventId=33263788">link</a>
+<strong>Mar. 2017</strong></p>
+</dd>
+
 <dd>
 <p><em>Escribir para Publicar</em>, National University de Colombia 
 <strong>Nov. 2014</strong></p>
@@ -1066,6 +1077,11 @@ dl dd p {
 </dd>
 
 <dt><h4>Workshops</h4></dt>
+<dd>
+<p>Identifying audiences on Twitter, FORCE11 Scholarly Communications Summer Institute, San Diego University
+<strong>2017</strong></p>
+</dd>
+
 <dd>
 <p>Web Scraping in Python, Stanford University
 <strong>2013</strong></p>
@@ -1094,11 +1110,6 @@ dl dd p {
 </dd>
 
 <dd>
-<p>Reilly, K. <em>&amp;</em> <strong>Alperin, J.P.</strong>. <em>Engaging Publics in Openness Initiatives</em>. SIRCA-IDRC. <em>total award: U$15,950</em>
-<strong>2015-2016</strong></p>
-</dd>
-
-<dd>
 <p>Larivière, V. et al. (Collaborator). <em>Open Science: Social Science &amp; Humanities Cyberinfrastructure</em>, Canada Foundation for Innovation (CFI). <em>total award: C$4,340,315</em> 
 <strong>2016-2018</strong></p>
 </dd>
@@ -1110,7 +1121,12 @@ dl dd p {
 
 <dt><h4>Past</h4></dt>
 <dd>
-<p><strong>Alpern, J.P.</strong> <em>&amp;</em> Nicholson, J. <em>Incentivizing Open Peer-Review</em>. OpenAire, <em>total award: €27,600</em>
+<p>Reilly, K.M.A. <em>&amp;</em> <strong>Alperin, J.P.</strong>. <em>Engaging Publics in Openness Initiatives</em>. SIRCA-IDRC. <em>total award: U$15,950</em>
+<strong>2015-2016</strong></p>
+</dd>
+
+<dd>
+<p><strong>Alperin, J.P.</strong> <em>&amp;</em> Nicholson, J. <em>Incentivizing Open Peer-Review</em>. OpenAire, <em>total award: €27,600</em>
 <strong>2015-2016</strong></p>
 </dd>
 
@@ -1153,12 +1169,37 @@ dl dd p {
 <dl>
 <dt><h4>Peer-Reviewed Publications</h4></dt>
 <dd>
-<p>Reilly, K. <em>&amp;</em> <strong>Alperin, J.P.</strong> Intermediation in Open Development: A Knowledge Stewardship Approach. <em>Global Media Journal: Canadian Edition</em>, 6(1). <a href="http://www.gmj.uottawa.ca/1601/v9i1_reilly%20and%20alperin_e.html">link</a>
+<p>Barata, G., Haustein, S., Shores, K. <em>&amp;</em> <strong>Alperin, J.P.</strong>. Local chatter or international buzz? Differences in language of social posts about Zika research. 
+<strong>forthcoming</strong></p>
+</dd>
+
+<dd>
+<p><strong>Alperin, J.P.</strong>, Haustein, S. <em>&amp;</em> Gomez, C. Identifying diffusion patterns of research on social media. 
+<strong>forthcoming</strong></p>
+</dd>
+
+<dd>
+<p>Shu, F., Mongeon, P., Haustein, S., Siler, K., <strong>Alperin, J.P.</strong>, Larivière, V. Is it such a big deal? On the cost of journal use in the digital era. 
+<strong>forthcoming</strong></p>
+</dd>
+
+<dd>
+<p><strong>Alperin, J.P.</strong> <em>&amp;</em> Rozemblum, C. La reinterpretación de visibilidad y calidad en las nuevas políticas de evaluación de revistas científicas. <em>Revista Interamericana de Bibliotecologia</em>
+<strong>forthcoming</strong></p>
+</dd>
+
+<dd>
+<p>Garnett, A., Aufreiter, M., Buchtala, O., <strong>Alperin, J.P.</strong>. Introducing Texture: An Open Source WYSIWYG Javascript Editor for JATS. <em>JATS-Con Proceedings 2017</em>, Bethesda: National Center for Biotechnology Information. <a href="https://www.ncbi.nlm.nih.gov/books/NBK425544/">link</a>
+<strong>2017</strong></p>
+</dd>
+
+<dd>
+<p>Reilly, K.M.A. <em>&amp;</em> <strong>Alperin, J.P.</strong> Intermediation in Open Development: A Knowledge Stewardship Approach. <em>Global Media Journal: Canadian Edition</em>, 6(1). <a href="http://www.gmj.uottawa.ca/1601/v9i1_reilly%20and%20alperin_e.html">link</a> <a href="https://scholar.google.com/scholar?oi=bibs&amp;hl=en&amp;cites=7158654315290979739">Google Scholar</a>
 <strong>2016</strong></p>
 </dd>
 
 <dd>
-<p>Carvalho Neto, S, Willinsky, J. <em>&amp;</em> <strong>Alperin, J.P.</strong> Measuring, Rating, Supporting, and Strengthening Open Access Scholarly Publishing in Brazil. <em>Education Policy Analysis Archives</em>, 24(54). <a href="http://doi.org/10.14507/epaa.24.2391">doi.org/10.14507/epaa.24.2391</a> <a href="http://epaa.asu.edu/ojs/article/view/2391/1777">link</a>
+<p>Carvalho Neto, S, Willinsky, J. <em>&amp;</em> <strong>Alperin, J.P.</strong> Measuring, Rating, Supporting, and Strengthening Open Access Scholarly Publishing in Brazil. <em>Education Policy Analysis Archives</em>, 24(54). <a href="http://doi.org/10.14507/epaa.24.2391">doi.org/10.14507/epaa.24.2391</a> <a href="http://epaa.asu.edu/ojs/article/view/2391/1777">link</a> <a href="https://scholar.google.com/scholar?oi=bibs&amp;hl=en&amp;cites=10812452665012228473,1765637083123982704">Google Scholar</a>
 <strong>2016</strong></p>
 </dd>
 
@@ -1183,7 +1224,7 @@ dl dd p {
 </dd>
 
 <dd>
-<p><strong>Alperin, J.P.</strong>, Fischman, G.E., <em>&amp;</em> Willinsky, J. Scholarly Communication Strategies in Latin America’s Research Universities. <em>Educación Superior y Sociedad</em>, 16(2). <a href="https://purl.stanford.edu/fj828hg2133">link</a> <a href="https://scholar.google.com/scholar?oi=bibs&amp;hl=en&amp;cites=603210712826963713,6115536236073831064">Google Scholar</a>
+<p><strong>Alperin, J.P.</strong>, Fischman, G.E., <em>&amp;</em> Willinsky, J. Scholarly Communication Strategies in Latin America’s Research Universities. <em>Educación Superior y Sociedad</em>, 16(2). <a href="https://purl.stanford.edu/fj828hg2133">link</a> <a href="https://scholar.google.com/scholar?oi=bibs&amp;hl=en&amp;cites=603210712826963713,6958017738413927443">Google Scholar</a>
 <strong>2011</strong></p>
 </dd>
 
@@ -1210,6 +1251,11 @@ dl dd p {
 
 <dt><h4>Book Chapters</h4></dt>
 <dd>
+<p>Reilly, K.M.A. <em>&amp;</em> <strong>Alperin, J.P.</strong>. A Stewardship Approach to Theorizing Open Data for Development. In <em>Open Data for Development</em>. MIT Press.
+<strong>forthcoming</strong></p>
+</dd>
+
+<dd>
 <p>Shamash, K., <strong>Alperin, J.P.</strong> &amp; Bordini, A.<em>Teaching Data Analysis in the Social Sciences: A Case Study with Article Level Metrics.</em> In Atenas, J. <em>&amp;</em> Havemann, L. (Eds) Open Data as an Open Education Resource, London: Open Knowledge Foundation. <a href="http://doi.org/10.6084/m9.figshare.1590031">link</a> <a href="http://doi.org/10.6084/m9.figshare.1590031">doi.org/10.6084/m9.figshare.1590031</a>
 <strong>2015</strong></p>
 </dd>
@@ -1225,7 +1271,7 @@ dl dd p {
 </dd>
 
 <dd>
-<p><strong>Alperin, J.P.</strong> Assessing the Growth and Use of Open Access Resources from Developing Regions: The Case of Latin America, Open Access Indicators and Scholarly Communications. In <strong>Alperin, J.P.</strong>, Babini, D., <em>&amp;</em> Fischman, G.E. (eds.) (2014). Open Access Indicators and Scholarly Communications in Latin America, Buenos Aires: CLACSO. <a href="http://www.clacso.org.ar/libreria-latinoamericana/libro_detalle.php?id_libro=906&amp;pageNum_rs_libros=1&amp;totalRows_rs_libros=824">link</a> <a href="https://scholar.google.com/scholar?oi=bibs&amp;hl=en&amp;cites=1996403120889663033,13918265887449564160">Google Scholar</a>
+<p><strong>Alperin, J.P.</strong> Assessing the Growth and Use of Open Access Resources from Developing Regions: The Case of Latin America, Open Access Indicators and Scholarly Communications. In <strong>Alperin, J.P.</strong>, Babini, D., <em>&amp;</em> Fischman, G.E. (eds.) (2014). Open Access Indicators and Scholarly Communications in Latin America, Buenos Aires: CLACSO. <a href="http://www.clacso.org.ar/libreria-latinoamericana/libro_detalle.php?id_libro=906&amp;pageNum_rs_libros=1&amp;totalRows_rs_libros=824">link</a> <a href="https://scholar.google.com/scholar?oi=bibs&amp;hl=en&amp;cites=1260197301226435236,2012900501202842257">Google Scholar</a>
 <strong>2014</strong></p>
 </dd>
 
@@ -1252,12 +1298,22 @@ dl dd p {
 
 <dt><h4>Other Publications</h4></dt>
 <dd>
-<p><strong>Alperin, J. P.</strong> Motivating Open Practices Through Faculty Review and Promotion. <em>OOO Canada Blog</em> <a href="http://www.ooocanada.ca/webinar_how_to_make_research_open_101">link</a>
+<p>Piwowar, H., Priem, J., Larivière, V., <strong>Alperin, J.P.</strong>, Matthias, L., Norlander, B., Farley, A., West, J. &amp; Haustein, S. The State of OA: A large-scale analysis of the prevalence and impact of Open Access articles. <em>PeerJ Preprints</em> <a href="https://doi.org/10.7287/peerj.preprints.3119v1">link</a> <a href="https://doi.org/10.7287/peerj.preprints.3119v1">doi.org/10.7287/peerj.preprints.3119v1</a>
+<strong>2017</strong></p>
+</dd>
+
+<dd>
+<p>Piwowar, H., Priem, J., Larivière, V., <strong>Alperin, J.P.</strong>, Matthias, L., Norlander, B., Farley, A., West, J. &amp; Haustein, S. Dataset from: The State of OA. <em>Zenodo</em>. <a href="http://doi.org/10.5281/zenodo.837902">link</a> <a href="http://doi.org/10.5281/zenodo.837902">doi.org/10.5281/zenodo.837902</a>
+<strong>2017</strong></p>
+</dd>
+
+<dd>
+<p><strong>Alperin, J.P.</strong> Motivating Open Practices Through Faculty Review and Promotion. <em>OOO Canada Blog</em> <a href="http://www.ooocanada.ca/webinar_how_to_make_research_open_101">link</a>
 <strong>2016</strong></p>
 </dd>
 
 <dd>
-<p>Nicholson, J. <em>&amp;</em> <strong>Alperin, J.P.</strong> A brief survey on peer review in scholarly communication. <em>The Winnower</em> <a href="https://thewinnower.com/papers/4659-a-brief-survey-on-peer-review-in-scholarly-communication">link</a>
+<p>Nicholson, J. <em>&amp;</em> <strong>Alperin, J.P.</strong> A brief survey on peer review in scholarly communication. <em>The Winnower</em> <a href="https://thewinnower.com/papers/4659-a-brief-survey-on-peer-review-in-scholarly-communication">link</a> <a href="https://scholar.google.com/scholar?oi=bibs&amp;hl=en&amp;cites=10951302768564561192">Google Scholar</a>
 <strong>2016</strong></p>
 </dd>
 
@@ -1298,6 +1354,26 @@ dl dd p {
 
 <dl>
 <dt><h4>Invited Presentations</h4></dt>
+<dd>
+<p><strong>Alperin, J.P.</strong> Research Perspectives Panel: Introducing the ScholCommLab. <em>PKP Scholarly Publishing Conference 2017</em>. Monstreal, Canada. 
+<strong>Aug. 4, 2017</strong></p>
+</dd>
+
+<dd>
+<p><strong>Alperin, J.P.</strong> Studying annotations in the classroom. <em>iAnnotate Conference.</em> San Francisco, USA. 
+<strong>May 6, 2017</strong></p>
+</dd>
+
+<dd>
+<p><strong>Alperin, J.P.</strong> Shining a Light on Critical Reading with Online Annotations. <em>Digital Pedagogies Symposium.</em> Victoria, Canada. <a href="https://speakerdeck.com/jalperin/shining-a-light-on-critical-reading-through-online-annotations-explorations-into-the-use-of-hypothes-dot-is-in-the-classroom">slides</a>
+<strong>May 5, 2017</strong></p>
+</dd>
+
+<dd>
+<p><strong>Alperinm, J.P.</strong> Failure of Access: Rethinking Open Education - Panel Discussion. <em>SFU Open Education Week.</em> Vancouver, Canada. <a href="https://youtu.be/k6FvUTkxy58?t=2302">video</a>
+<strong>Mar. 28, 2017</strong></p>
+</dd>
+
 <dd>
 <p><strong>Alperin, J.P.</strong>. ¿Que impacto miden las métricas alternativas en publicación científica?. <em>Aprender3c.</em> Online. 
 <strong>Nov. 28, 2016</strong></p>
@@ -1420,12 +1496,22 @@ dl dd p {
 
 <dt><h4>Peer-Reviewed Conference Presentations</h4></dt>
 <dd>
-<p><strong>Alperin, J.P.</strong>, Stranack, K. <em>&amp;</em> Garnett, A. On the Peripheries of Scholarly Infrastructure: A look at the Journals Using Open Journal Systems. <em>21st International Conference on Science and Technology Indicators (STI Conference 2016)</em>. Valencia, Spain. <a href="https://speakerdeck.com/jalperin/sti-ojsstats">slides</a>
+<p><strong>Alpeirn, J.P.</strong> What is being published with OJS? and by whom? <em>PKP Scholarly Publishing Conference 2017</em>. Monstreal, Canada. <a href="https://speakerdeck.com/jalperin/what-is-being-published-with-ojs-and-by-whom">slides</a>
+<strong>Aug. 4, 2017</strong></p>
+</dd>
+
+<dd>
+<p><strong>Alperin, J.P.</strong>, Hanson, E.W., Shores, K., <em>&amp;</em> Haustein, S. Twitter bot surveys: A discrete choice experiment to increase response rates. <em>8th International Conference on Social Media and Society</em>. Toronto, Canada. <a href="https://speakerdeck.com/jalperin/twitter-bot-surveys-a-discrete-choice-experiment-to-increase-response-rates">slides</a> <a href="https://doi.org/10.1145/3097286.3097313">doi.org/10.1145/3097286.3097313</a>
+<strong>July 28, 2017</strong></p>
+</dd>
+
+<dd>
+<p><strong>Alperin, J.P.</strong>, Stranack, K. <em>&amp;</em> Garnett, A. On the Peripheries of Scholarly Infrastructure: A look at the Journals Using Open Journal Systems. <em>21st International Conference on Science and Technology Indicators (STI Conference 2016)</em>. Valencia, Spain. <a href="http://summit.sfu.ca/system/files/iritems1/16763/ojsstats2016.pdf">link</a> <a href="https://speakerdeck.com/jalperin/sti-ojsstats">slides</a> <a href="https://scholar.google.com/scholar?oi=bibs&amp;hl=en&amp;cites=9988122229558301438">Google Scholar</a>
 <strong>Sep. 14, 2016</strong></p>
 </dd>
 
 <dd>
-<p><strong>Alperin, J.P.</strong> Moving beyond counts: A method for surveying Twitter users. <em>Altmetrics15 Workshop</em>, <em>Altmetrics Conference</em>. Amsterdam, Netherlands. <a href="http://altmetrics.org/altmetrics15/alperin/">link</a> 
+<p><strong>Alperin, J.P.</strong> Moving beyond counts: A method for surveying Twitter users. <em>Altmetrics15 Workshop</em>, <em>Altmetrics Conference</em>. Amsterdam, Netherlands. <a href="http://altmetrics.org/altmetrics15/alperin/">link</a> <a href="https://scholar.google.com/scholar?oi=bibs&amp;hl=en&amp;cites=7435804700766789120">Google Scholar</a>
 <strong>Oct. 9, 2015</strong></p>
 </dd>
 
@@ -1435,7 +1521,7 @@ dl dd p {
 </dd>
 
 <dd>
-<p><strong>Alperin. J.P.</strong> Exploring altmetrics in an emerging country context. <em>Altmetrics14 Workshop, WebScience Conference 2014.</em> Bloomington, USA. <a href="http://dx.doi.org/10.6084/m9.figshare.1041797">link</a> <a href="https://speakerdeck.com/jalperin/exploring-altmetrics-in-an-emerging-country-context">slides</a> <a href="http://dx.doi.org/10.6084/m9.figshare.1041797">doi.org/10.6084/m9.figshare.1041797</a> <a href="https://scholar.google.com/scholar?oi=bibs&amp;hl=en&amp;cites=5927638455828403875">Google Scholar</a>
+<p><strong>Alperin. J.P.</strong> Exploring altmetrics in an emerging country context. <em>Altmetrics14 Workshop, WebScience Conference 2014.</em> Bloomington, USA. <a href="https://doi.org/10.6084/m9.figshare.1041797">link</a> <a href="https://speakerdeck.com/jalperin/exploring-altmetrics-in-an-emerging-country-context">slides</a> <a href="https://doi.org/10.6084/m9.figshare.1041797">doi.org/10.6084/m9.figshare.1041797</a> <a href="https://scholar.google.com/scholar?oi=bibs&amp;hl=en&amp;cites=5927638455828403875">Google Scholar</a>
 <strong>June 23, 2014</strong></p>
 </dd>
 
@@ -1470,6 +1556,18 @@ dl dd p {
 <h3 id="awards" class="singlespace">Awards</h3>
 
 <dl>
+<dt><h4>Fellowships</h4></dt>
+<dd>
+<p>Dewey Teaching Fellow: <em>Simon Fraser University</em>
+<strong>2018 - 2019</strong></p>
+</dd>
+
+<dd>Future of Scholarly Communication and eScholarship Fellow: <em>FORCE11</em>
+<strong>2013, 2016</strong></dd>
+
+<dd>Haas Centre Graduate Public Service Fellow: <em>Stanford University</em>
+<strong>2012 - 2013</strong></dd>
+
 <dt><h4>Travel Scholarships</h4></dt>
 <dd>
 <p>2AM Altmetrics Conference / Altmetrics15 Workshop
@@ -1484,31 +1582,48 @@ dl dd p {
 
 <dd>ALM Workshop
 <strong>2013, 2014</strong></dd>
-
-<dt><h4>Fellowships</h4></dt>
-<dd>
-<p>Future of Scholarly Communication and eScholarship Fellow: <em>FORCE11</em>
-<strong>2013, 2016</strong></p>
-</dd>
-
-<dd>Haas Centre Graduate Public Service Fellow: <em>Stanford University</em>
-<strong>2012 - 2013</strong></dd>
 </dl>
 
 <hr />
 
-<h3 id="supervision" class="singlespace">Student Supervision</h3>
+<h3 id="supervision" class="singlespace">Supervision</h3>
 
 <dl>
-<dt><h4>Post-doctoral Supervision</h4></dt>
+<dt><h4>Visiting Scholars</h4></dt>
 <dd>
-<p>Kyle Siler
-<strong>2016 - present</strong></p>
+<p>Germana Barata, University of Campinas, Brazil
+<strong>2017-present</strong></p>
 </dd>
 
 <dd>
-<p>Germana Barata
-<strong>2016 - present</strong></p>
+<p>Amin Erfanmanesh, University of Isfahan, Iran
+<strong>2017</strong></p>
+</dd>
+
+<dd>
+<p>Jon Tennant, Imperial College London, UK
+<strong>2017</strong></p>
+</dd>
+
+<dd>
+<p>Stefanie Haustein, University of Montreal, Canada
+<strong>2016</strong></p>
+</dd>
+
+<dt><h4>Post-doctoral Supervision</h4></dt>
+<dd>
+<p>David Moscrop
+<strong>2017 – present</strong></p>
+</dd>
+
+<dd>
+<p>Fereshteh Didegah
+<strong>2017 – present</strong></p>
+</dd>
+
+<dd>
+<p>Kyle Siler
+<strong>2016 - 2017</strong></p>
 </dd>
 
 <dt><h4>Senior Supervisor</h4></dt>
@@ -1518,13 +1633,18 @@ dl dd p {
 </dd>
 
 <dd>
-<p>Wake-Hyde, Zoë. <em>-</em>. Master in Publishing. SFU.
-<strong>in progress</strong></p>
+<p>Oliviera, Joshua. <em>-</em>. Master in Publishing. SFU.
+<strong>2017</strong></p>
 </dd>
 
 <dd>
-<p>Oliviera, Joshua. <em>-</em>. Master in Publishing. SFU.
-<strong>in progress</strong></p>
+<p>Wake-Hyde, Zoë. <em>Openly Embracing Change: How the Rebus Foundation is Building a New Model of Publishing</em>. Master in Publishing. SFU.
+<strong>2016</strong></p>
+</dd>
+
+<dd>
+<p>Hanson, Erik. <em>Twitterbot Surveys: A Method for Magazine Audience Analysis</em>. Master in Publishing. SFU.
+<strong>2016</strong></p>
 </dd>
 
 <dd>
@@ -1563,6 +1683,11 @@ dl dd p {
 </dd>
 
 <dt><h4>Supervisor</h4></dt>
+<dd>
+<p>Cuica, Aniela. <em>Modular content: a new publishing strategy at the Continuing Legal Education Society of British Columbia</em>. Master in Publishing. SFU. 
+<strong>2017</strong></p>
+</dd>
+
 <dd>
 <p>Firlotte, Molly. <em>An Analysis Of Outreach Strategies In Pursuit Revisiting The Porthole View: Of Market Expansion</em>. Master in Publishing. SFU.
 <strong>2016</strong></p>
@@ -1607,6 +1732,12 @@ dl dd p {
 </dd>
 
 <dt><h4>Conference Activity</h4></dt>
+<dd>
+<p>Scientific Committee:
+<em>V Open Science Forum (INFO2018)</em>, Havana, Cuba
+<strong>2018</strong></p>
+</dd>
+
 <dd>
 <p>Scientific Committee:
 <em>XXI International Conference On Science And Technology Indicators</em>, Valencia, Spain
@@ -1657,12 +1788,12 @@ Open Data</em>, Washington, D.C., USA
 
 <dt><h4>Reviewer</h4></dt>
 <dd>
-<p><em>Nature</em>, <em>Information Research</em>, <em>Publications</em>, <em>Aslib Proceedings (2)</em>, <em>Scientometrics</em>, <em>Scholarly and Research Communication (4)</em>, <em>Palabra Clave (2)</em>, <em>Education Policy Analysis Archives</em>, <em>Revista Facultad de Odontología</em></p>
+<p><em>Scientometrics (3)</em>, <em>TLA-MELAUA</em>, <em>Nature</em>, <em>Science and Public Policy (2)</em>, <em>Information Research</em>, <em>Publications</em>, <em>Aslib Proceedings (2)</em>, <em>Scholarly and Research Communication (4)</em>, <em>Palabra Clave (2)</em>, <em>Education Policy Analysis Archives</em>, <em>Revista Facultad de Odontología</em></p>
 </dd>
 
 <dt><h4>Memberships</h4></dt>
 <dd>
-<p>SPARC Student Advisory Group, CrossRef DOI Event Tracker Committee, OOO Canada</p>
+<p>Metadata 2020 Working Group, BOAI 15 Working group, SPARC Student Advisory Group, CrossRef DOI Event Tracker Committee, OOO Canada</p>
 </dd>
 </dl>
 
@@ -1677,11 +1808,11 @@ Open Data</em>, Washington, D.C., USA
 
 <dd>
 <p>Open Access Advisory
-<strong>2014 - present</strong></p>
+<strong>2014 - 2016</strong></p>
 </dd>
 
 <dd>
-<p>Three faculty search committees
+<p>Faculty search committees (3)
 <strong>2014 - present</strong></p>
 </dd>
 
@@ -1697,9 +1828,39 @@ Open Data</em>, Washington, D.C., USA
 
 <dl>
 <dt>&nbsp;</dt>
-<dd><em>CONACYT Prensa</em>. ¿Cuál es el impacto social de las revistas científicas?
+<dd><em>Nature News</em> Half of papers searched for online are free to read. <a href="http://www.nature.com/news/half-of-papers-searched-for-online-are-free-to-read-1.22418">link</a>
+<strong>Aug. 7, 2017</strong></dd>
+
+<dd>
+<p><em>The Scientist</em> Open Access On the Rise: Study (Interview with co-author). <a href="http://www.the-scientist.com/?articles.view/articleNo/50027/title/Open-Access-On-the-Rise--Study/">link</a>
+<strong>Aug. 7, 2017</strong></p>
+</dd>
+
+<dd>
+<p><em>Open and Shut?</em> The State of Open Access: Some New Data (Interview with co-author). <a href="http://poynder.blogspot.ca/2017/08/the-state-of-open-access-some-new.html">link</a>
+<strong>Aug. 3, 2017</strong></p>
+</dd>
+
+<dd>
+<p><em>Nature</em> Trend Watch: The State of Open Access. <a href="https://www.nature.com/news/exomoon-candidate-fake-peer-review-and-a-telescope-problem-1.22389">link</a>
+<strong>Aug. 2, 2017</strong></p>
+</dd>
+
+<dd>
+<p><em>Revista Anfibia (Universidad Nacional de San Martin)</em>. Los Dueños de la ciencia. <a href="http://www.revistaanfibia.com/ensayo/los-duenos-de-la-ciencia/">link</a>
+<strong>May, 2017</strong></p>
+</dd>
+
+<dd>
+<p><em>Copyright Chat</em>. University of Illinois at Urbana-Champaign podcast. <a href="http://www.stitcher.com/podcast/copyright-chat/e/50165849">link</a>
+<strong>Mar. 17, 2017</strong></p>
+</dd>
+
+<dd>
+<p><em>CONACYT Prensa</em>. ¿Cuál es el impacto social de las revistas científicas?
 <a href="http://www.conacytprensa.mx/index.php/sociedad/politica-cientifica/5786-debate-sobre-el-impacto-social-de-las-revistas-cientificas-nota-fil">link</a>
-<strong>Mar. 2, 2016</strong></dd>
+<strong>Mar. 2, 2016</strong></p>
+</dd>
 
 <dd>
 <p><em>Scholarly Kitchen.</em> Celebrating Five Years of Altmetrics.

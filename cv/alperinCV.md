@@ -6,9 +6,8 @@
       $(element).wrapInner('<p></p>');
     });
 
-    $.getScript('./stats-ir.js', function() {
-      article_stats = data[0]['stats']['articles'];
-
+    $.getJSON('./scholar.json', function(article_stats) {
+      article_ids = Object.keys(article_stats);
       $('a').each(function(i, element) { 
 
         var href = $(element)[0].getAttribute('href');
@@ -18,13 +17,14 @@
           doi = doi.substr(doi.indexOf('/') + 1);  // strip out doi.org/ 
           $($(element)[0]).closest('dd').append('<div data-badge-popover="right" data-badge-type="2" data-doi="' + doi + '" data-hide-no-mentions="true" class="altmetric-embed"></div>');
             metrics = true;
-        } else if (href.indexOf('scholar.google.com') > 0) {
-          var gsid = href.substring(href.indexOf('cites=') + 6)
-          for (var i=0; i<article_stats.length; i++) {
-            if (article_stats[i][0].indexOf(gsid) > 0) {
-              $($(element)[0]).closest('dd').append('<div class="google-scholar"><a href="' + href +'" ><img src="scholar_logo_long.png" align="left" /></a><span class="metricbubble">' + article_stats[i][1] + '</span></div>');
-              $(element).remove()
-            }
+        } else if (href.indexOf('scholar.google') > -1) {
+          var gsid = href.substring(href.indexOf('cites=') + 6);
+          if (article_ids.indexOf(gsid) > -1  ) {
+            $($(element)[0]).closest('dd').append('<div class="google-scholar"><a href="' + href +'" ><img src="scholar_logo_long.png" align="left" /></a><span class="metricbubble">' + article_stats[gsid] + '</span></div>'
+              );
+            $(element).remove()
+          } else {
+            console.log("Not found, Google Scholar: " + gsid)
           }
         } 
       });  
@@ -105,7 +105,7 @@ Bachelor of Mathematics, University of Waterloo
 Assistant Professor
  : Simon Fraser University
 
-Associate Faculty Director
+Associate Faculty Director of Research
  : Public Knowledge Project
 
 -------
@@ -128,19 +128,22 @@ Associate Faculty Director
 
 #### Seminar Courses 
 : PUB802: Technology and the Evolving Forms of Publishing, Graduate [link](http://tkbr.ccsp.sfu.ca/pub802)
- __2015, 2016__
+ __2015, 2016, 2017__
 : PUB401: Technology and the Evolving Book, Undergraduate  [link](http://tkbr.ccsp.sfu.ca/pub401)
 __2014, 2015__
 
 #### Project Courses
 : PUB607: Publishing Technology Project, Graduate [link](http://tkbr.ccsp.sfu.ca/pub607)
- __2014, 2015, 2016__ 
+ __2014, 2015, 2016, 2017__ 
 
 #### Lecture Courses
 : PUB101: Publication of Self in Everyday Life, Undergraduate
  __2014__
 
-#### Guest Lectures
+#### Public Lectures
+: *Does our research serve the public, or only ourselves?*, University of Illinois Urbana-Champaign [link](http://illinois.edu/calendar/detail/598?eventId=33263788)
+__Mar. 2017__
+
 : *Escribir para Publicar*, National University de Colombia 
  __Nov. 2014__
 : *The Emergence of Latin American Science*, University of Costa Rica
@@ -151,6 +154,9 @@ __2014, 2015__
  __2013__
 
 #### Workshops
+: Identifying audiences on Twitter, FORCE11 Scholarly Communications Summer Institute, San Diego University
+__2017__
+
 : Web Scraping in Python, Stanford University
  __2013__
  
@@ -168,9 +174,6 @@ __2016-2019__
 : **Alperin, J.P.**, et al. *Assessing the Value of Openness in Faculty Review and Promotion*. Open Society Foundations. *total award: U$50,000*
 __2016-2017__
 
-: Reilly, K. *&* **Alperin, J.P.**. *Engaging Publics in Openness Initiatives*. SIRCA-IDRC. *total award: U$15,950*
-__2015-2016__
-
 : Larivière, V. et al. (Collaborator). *Open Science: Social Science & Humanities Cyberinfrastructure*, Canada Foundation for Innovation (CFI). *total award: C$4,340,315* 
 __2016-2018__
 
@@ -178,7 +181,10 @@ __2016-2018__
 __2012-2017__
 
 #### Past 
-: **Alpern, J.P.** *&* Nicholson, J. *Incentivizing Open Peer-Review*. OpenAire, *total award: €27,600*
+: Reilly, K.M.A. *&* **Alperin, J.P.**. *Engaging Publics in Openness Initiatives*. SIRCA-IDRC. *total award: U$15,950*
+__2015-2016__
+
+: **Alperin, J.P.** *&* Nicholson, J. *Incentivizing Open Peer-Review*. OpenAire, *total award: €27,600*
 __2015-2016__
 
 : Owen, B., Garnett, A., **Alperin, J.P.**, *&* Stranack, K. *Smarter Texts for Advancing Public Knowledge*. Canadian Internet Registration Authority (CIRA). *total award: C$75,000*
@@ -205,10 +211,26 @@ __2016__
 ### Publications {#publications}
 
 #### Peer-Reviewed Publications
-: Reilly, K. *&* **Alperin, J.P.** Intermediation in Open Development: A Knowledge Stewardship Approach. *Global Media Journal: Canadian Edition*, 6(1). [link](http://www.gmj.uottawa.ca/1601/v9i1_reilly%20and%20alperin_e.html)
+
+: Barata, G., Haustein, S., Shores, K. *&* **Alperin, J.P.**. Local chatter or international buzz? Differences in language of social posts about Zika research. 
+__forthcoming__
+
+: **Alperin, J.P.**, Haustein, S. *&* Gomez, C. Identifying diffusion patterns of research on social media. 
+__forthcoming__
+
+: Shu, F., Mongeon, P., Haustein, S., Siler, K., **Alperin, J.P.**, Larivière, V. Is it such a big deal? On the cost of journal use in the digital era. 
+__forthcoming__
+
+: **Alperin, J.P.** *&* Rozemblum, C. La reinterpretación de visibilidad y calidad en las nuevas políticas de evaluación de revistas científicas. *Revista Interamericana de Bibliotecologia*
+__forthcoming__
+
+: Garnett, A., Aufreiter, M., Buchtala, O., **Alperin, J.P.**. Introducing Texture: An Open Source WYSIWYG Javascript Editor for JATS. *JATS-Con Proceedings 2017*, Bethesda: National Center for Biotechnology Information. [link](https://www.ncbi.nlm.nih.gov/books/NBK425544/)
+__2017__
+
+: Reilly, K.M.A. *&* **Alperin, J.P.** Intermediation in Open Development: A Knowledge Stewardship Approach. *Global Media Journal: Canadian Edition*, 6(1). [link](http://www.gmj.uottawa.ca/1601/v9i1_reilly%20and%20alperin_e.html) [Google Scholar](https://scholar.google.com/scholar?oi=bibs&hl=en&cites=7158654315290979739)
 __2016__
 
-: Carvalho Neto, S, Willinsky, J. *&* **Alperin, J.P.** Measuring, Rating, Supporting, and Strengthening Open Access Scholarly Publishing in Brazil. *Education Policy Analysis Archives*, 24(54). [doi.org/10.14507/epaa.24.2391](http://doi.org/10.14507/epaa.24.2391) [link](http://epaa.asu.edu/ojs/article/view/2391/1777)
+: Carvalho Neto, S, Willinsky, J. *&* **Alperin, J.P.** Measuring, Rating, Supporting, and Strengthening Open Access Scholarly Publishing in Brazil. *Education Policy Analysis Archives*, 24(54). [doi.org/10.14507/epaa.24.2391](http://doi.org/10.14507/epaa.24.2391) [link](http://epaa.asu.edu/ojs/article/view/2391/1777) [Google Scholar](https://scholar.google.com/scholar?oi=bibs&hl=en&cites=10812452665012228473,1765637083123982704)
 __2016__
 
 : **Alperin, J.P.** *The Public Impact of Latin America's Approach to Open Access*. Doctoral Dissertation, Stanford University. [link](http://purl.stanford.edu/jr256tk1194) [Google Scholar](https://scholar.google.com/scholar?oi=bibs&hl=en&cites=2304846227896743763) 
@@ -223,7 +245,7 @@ __2015__
 : **Alperin, J.P**. Brazil's Exception to the World-Class University Movement. *Quality in Higher Education*, 19(2). [link](https://purl.stanford.edu/cp475cd5409) [doi.org/10.1080/13538322.2013.802573](http://doi.org/10.1080/13538322.2013.802573) [Google Scholar](https://scholar.google.com/scholar?oi=bibs&hl=en&cites=7663946573571325985)
 __2013__
 
-: **Alperin, J.P.**, Fischman, G.E., *&* Willinsky, J. Scholarly Communication Strategies in Latin America’s Research Universities. *Educación Superior y Sociedad*, 16(2). [link](https://purl.stanford.edu/fj828hg2133) [Google Scholar](https://scholar.google.com/scholar?oi=bibs&hl=en&cites=603210712826963713,6115536236073831064)
+: **Alperin, J.P.**, Fischman, G.E., *&* Willinsky, J. Scholarly Communication Strategies in Latin America’s Research Universities. *Educación Superior y Sociedad*, 16(2). [link](https://purl.stanford.edu/fj828hg2133) [Google Scholar](https://scholar.google.com/scholar?oi=bibs&hl=en&cites=603210712826963713,6958017738413927443)
 __2011__
 
 : Fischman, G.E., **Alperin, J.P.**, *&* Willinsky, J. Visibility and Quality in Spanish-Language Latin American Scholarly Publishing. *Information Technologies & International Development*, 6(4). [link](http://itidjournal.org/index.php/itid/article/view/639/274) [Google Scholar](https://scholar.google.com/scholar?oi=bibs&hl=en&cites=2339300654326134976)
@@ -240,6 +262,9 @@ __2015__
 __2014__
 
 #### Book Chapters 
+: Reilly, K.M.A. *&* **Alperin, J.P.**. A Stewardship Approach to Theorizing Open Data for Development. In *Open Data for Development*. MIT Press.
+__forthcoming__ 
+
 : Shamash, K., **Alperin, J.P.** & Bordini, A.*Teaching Data Analysis in the Social Sciences: A Case Study with Article Level Metrics.* In Atenas, J. *&* Havemann, L. (Eds) Open Data as an Open Education Resource, London: Open Knowledge Foundation. [link](http://doi.org/10.6084/m9.figshare.1590031) [doi.org/10.6084/m9.figshare.1590031](http://doi.org/10.6084/m9.figshare.1590031)
 __2015__
 
@@ -249,7 +274,7 @@ __2015__
 : Fischman, G.E. *&* **Alperin, J.P.** About Lights and Shadows: Latin American Scientific Journals. In **Alperin, J.P.** *&* Fischman, G.E. (eds.) (2015). *Made in Latin America Open Access, Scholarly Journals, and Regional Innovations*, Buenos Aires: CLACSO. [link](http://www.clacso.org.ar/libreria-latinoamericana/libro_detalle.php?id_libro=1001&pageNum_rs_libros=0&totalRows_rs_libros=966)
 __2015__
 
-: **Alperin, J.P.** Assessing the Growth and Use of Open Access Resources from Developing Regions: The Case of Latin America, Open Access Indicators and Scholarly Communications. In **Alperin, J.P.**, Babini, D., *&* Fischman, G.E. (eds.) (2014). Open Access Indicators and Scholarly Communications in Latin America, Buenos Aires: CLACSO. [link](http://www.clacso.org.ar/libreria-latinoamericana/libro_detalle.php?id_libro=906&pageNum_rs_libros=1&totalRows_rs_libros=824) [Google Scholar](https://scholar.google.com/scholar?oi=bibs&hl=en&cites=1996403120889663033,13918265887449564160)
+: **Alperin, J.P.** Assessing the Growth and Use of Open Access Resources from Developing Regions: The Case of Latin America, Open Access Indicators and Scholarly Communications. In **Alperin, J.P.**, Babini, D., *&* Fischman, G.E. (eds.) (2014). Open Access Indicators and Scholarly Communications in Latin America, Buenos Aires: CLACSO. [link](http://www.clacso.org.ar/libreria-latinoamericana/libro_detalle.php?id_libro=906&pageNum_rs_libros=1&totalRows_rs_libros=824) [Google Scholar](https://scholar.google.com/scholar?oi=bibs&hl=en&cites=1260197301226435236,2012900501202842257)
 __2014__
 
 : Fischman, G.E., **Alperin, J.P.**, *&* Willisnky, J. Old and New Challenges for Scholarly Communications in Spanish. In Cetto, A.M., *&* Alonso, O. *Quality and Impact of Ibero-American Scientific Journals*. Mexico: UNAM.
@@ -266,10 +291,18 @@ __2013__
 __2012__
 
 #### Other Publications
-: **Alperin, J. P.** Motivating Open Practices Through Faculty Review and Promotion. *OOO Canada Blog* [link](http://www.ooocanada.ca/webinar_how_to_make_research_open_101)
+: Piwowar, H., Priem, J., Larivière, V., **Alperin, J.P.**, Matthias, L., Norlander, B., Farley, A., West, J. & Haustein, S. The State of OA: A large-scale analysis of the prevalence and impact of Open Access articles. *PeerJ Preprints* [link](https://doi.org/10.7287/peerj.preprints.3119v1) [doi.org/10.7287/peerj.preprints.3119v1](https://doi.org/10.7287/peerj.preprints.3119v1)
+__2017__
+
+: Piwowar, H., Priem, J., Larivière, V., **Alperin, J.P.**, Matthias, L., Norlander, B., Farley, A., West, J. & Haustein, S. Dataset from: The State of OA. *Zenodo*. [link](http://doi.org/10.5281/zenodo.837902) [doi.org/10.5281/zenodo.837902](http://doi.org/10.5281/zenodo.837902)
+__2017__
+
+: **Alperin, J.P.** How does Open Source Software Support Knowledge Dissemination? *
+
+: **Alperin, J.P.** Motivating Open Practices Through Faculty Review and Promotion. *OOO Canada Blog* [link](http://www.ooocanada.ca/webinar_how_to_make_research_open_101)
 __2016__
 
-: Nicholson, J. *&* **Alperin, J.P.** A brief survey on peer review in scholarly communication. *The Winnower* [link](https://thewinnower.com/papers/4659-a-brief-survey-on-peer-review-in-scholarly-communication)
+: Nicholson, J. *&* **Alperin, J.P.** A brief survey on peer review in scholarly communication. *The Winnower* [link](https://thewinnower.com/papers/4659-a-brief-survey-on-peer-review-in-scholarly-communication) [Google Scholar](https://scholar.google.com/scholar?oi=bibs&hl=en&cites=10951302768564561192)
 __2016__
 
 : **Alperin, J.P.** *&* Bordini, A. How to reach a wider audience for your research. *SciDevNet*. [link](http://www.scidev.net/global/communication/practical-guide/altmetrics-audience-connect-research.html)
@@ -294,6 +327,18 @@ __2011__
 
 ### Presentations {#presentations}
 #### Invited Presentations 
+: **Alperin, J.P.** Research Perspectives Panel: Introducing the ScholCommLab. *PKP Scholarly Publishing Conference 2017*. Monstreal, Canada. 
+__Aug. 4, 2017__
+
+: **Alperin, J.P.** Studying annotations in the classroom. *iAnnotate Conference.* San Francisco, USA. 
+__May 6, 2017__
+
+: **Alperin, J.P.** Shining a Light on Critical Reading with Online Annotations. *Digital Pedagogies Symposium.* Victoria, Canada. [slides](https://speakerdeck.com/jalperin/shining-a-light-on-critical-reading-through-online-annotations-explorations-into-the-use-of-hypothes-dot-is-in-the-classroom)
+__May 5, 2017__
+
+: **Alperinm, J.P.** Failure of Access: Rethinking Open Education - Panel Discussion. *SFU Open Education Week.* Vancouver, Canada. [video](https://youtu.be/k6FvUTkxy58?t=2302)
+__Mar. 28, 2017__
+
 : **Alperin, J.P.**. ¿Que impacto miden las métricas alternativas en publicación científica?. *Aprender3c.* Online. 
 __Nov. 28, 2016__
 
@@ -367,16 +412,22 @@ __June 10, 2009__
 __Sep. 15, 2008__
 
 #### Peer-Reviewed Conference Presentations
-: **Alperin, J.P.**, Stranack, K. *&* Garnett, A. On the Peripheries of Scholarly Infrastructure: A look at the Journals Using Open Journal Systems. *21st International Conference on Science and Technology Indicators (STI Conference 2016)*. Valencia, Spain. [slides](https://speakerdeck.com/jalperin/sti-ojsstats)
+: **Alpeirn, J.P.** What is being published with OJS? and by whom? *PKP Scholarly Publishing Conference 2017*. Monstreal, Canada. [slides](https://speakerdeck.com/jalperin/what-is-being-published-with-ojs-and-by-whom)
+__Aug. 4, 2017__
+
+: **Alperin, J.P.**, Hanson, E.W., Shores, K., *&* Haustein, S. Twitter bot surveys: A discrete choice experiment to increase response rates. *8th International Conference on Social Media and Society*. Toronto, Canada. [slides](https://speakerdeck.com/jalperin/twitter-bot-surveys-a-discrete-choice-experiment-to-increase-response-rates) [doi.org/10.1145/3097286.3097313](https://doi.org/10.1145/3097286.3097313)
+__July 28, 2017__
+
+: **Alperin, J.P.**, Stranack, K. *&* Garnett, A. On the Peripheries of Scholarly Infrastructure: A look at the Journals Using Open Journal Systems. *21st International Conference on Science and Technology Indicators (STI Conference 2016)*. Valencia, Spain. [link](http://summit.sfu.ca/system/files/iritems1/16763/ojsstats2016.pdf) [slides](https://speakerdeck.com/jalperin/sti-ojsstats) [Google Scholar](https://scholar.google.com/scholar?oi=bibs&hl=en&cites=9988122229558301438)
 __Sep. 14, 2016__
 
-: **Alperin, J.P.** Moving beyond counts: A method for surveying Twitter users. *Altmetrics15 Workshop*, *Altmetrics Conference*. Amsterdam, Netherlands. [link](http://altmetrics.org/altmetrics15/alperin/) 
+: **Alperin, J.P.** Moving beyond counts: A method for surveying Twitter users. *Altmetrics15 Workshop*, *Altmetrics Conference*. Amsterdam, Netherlands. [link](http://altmetrics.org/altmetrics15/alperin/) [Google Scholar](https://scholar.google.com/scholar?oi=bibs&hl=en&cites=7435804700766789120)
 __Oct. 9, 2015__
 
 : **Alperin, J.P.** Evolving altmetrics to capture impact outside the academy. *2:AM Altmetrics Conference.* Amsterdam, Netherlands. [slides](https://speakerdeck.com/jalperin/evolving-altmetrics-to-capture-impact-outside-the-academy)
 __Oct. 7, 2015__
 
-: **Alperin. J.P.** Exploring altmetrics in an emerging country context. *Altmetrics14 Workshop, WebScience Conference 2014.* Bloomington, USA. [link](http://dx.doi.org/10.6084/m9.figshare.1041797) [slides](https://speakerdeck.com/jalperin/exploring-altmetrics-in-an-emerging-country-context) [doi.org/10.6084/m9.figshare.1041797](http://dx.doi.org/10.6084/m9.figshare.1041797) [Google Scholar](https://scholar.google.com/scholar?oi=bibs&hl=en&cites=5927638455828403875)
+: **Alperin. J.P.** Exploring altmetrics in an emerging country context. *Altmetrics14 Workshop, WebScience Conference 2014.* Bloomington, USA. [link](https://doi.org/10.6084/m9.figshare.1041797) [slides](https://speakerdeck.com/jalperin/exploring-altmetrics-in-an-emerging-country-context) [doi.org/10.6084/m9.figshare.1041797](https://doi.org/10.6084/m9.figshare.1041797) [Google Scholar](https://scholar.google.com/scholar?oi=bibs&hl=en&cites=5927638455828403875)
 __June 23, 2014__
 
 : **Alperin, J.P.** What it Means for PKP to Offer Article Level Metrics. *SciELO 15*. Sao Paolo, Brazil. [slides](https://speakerdeck.com/jalperin/what-it-means-for-pkp-to-offer-article-level-metrics)
@@ -396,6 +447,14 @@ __May 2, 2011__
 
 -------
 ### Awards {#awards .singlespace}
+#### Fellowships
+: Dewey Teaching Fellow: *Simon Fraser University*
+__2018 - 2019__
+: Future of Scholarly Communication and eScholarship Fellow: *FORCE11*
+__2013, 2016__
+: Haas Centre Graduate Public Service Fellow: *Stanford University*
+__2012 - 2013__
+
 #### Travel Scholarships
 : 2AM Altmetrics Conference / Altmetrics15 Workshop
 __2015__
@@ -406,31 +465,46 @@ __2012, 2013__
 : ALM Workshop
 __2013, 2014__
 
-#### Fellowships
-: Future of Scholarly Communication and eScholarship Fellow: *FORCE11*
-__2013, 2016__
-: Haas Centre Graduate Public Service Fellow: *Stanford University*
-__2012 - 2013__
+
 
 ------ 
 
-### Student Supervision {#supervision .singlespace}
-#### Post-doctoral Supervision
-: Kyle Siler
-__2016 - present__
+### Supervision {#supervision .singlespace}
+#### Visiting Scholars
+: Germana Barata, University of Campinas, Brazil
+__2017-present__
 
-: Germana Barata
-__2016 - present__
+: Amin Erfanmanesh, University of Isfahan, Iran
+__2017__
+
+: Jon Tennant, Imperial College London, UK
+__2017__
+
+: Stefanie Haustein, University of Montreal, Canada
+__2016__
+
+#### Post-doctoral Supervision
+: David Moscrop
+__2017 – present__
+
+: Fereshteh Didegah
+__2017 – present__
+
+: Kyle Siler
+__2016 - 2017__
 
 #### Senior Supervisor
 : Sellars, Stacey. *Non-linear Digital Storytelling in the National Film Board of Canada's Interactive Projects*. Master in Publishing. SFU.
 __in progress__
 
-: Wake-Hyde, Zoë. *-*. Master in Publishing. SFU.
-__in progress__
-
 : Oliviera, Joshua. *-*. Master in Publishing. SFU.
-__in progress__
+__2017__
+
+: Wake-Hyde, Zoë. *Openly Embracing Change: How the Rebus Foundation is Building a New Model of Publishing*. Master in Publishing. SFU.
+__2016__
+
+: Hanson, Erik. *Twitterbot Surveys: A Method for Magazine Audience Analysis*. Master in Publishing. SFU.
+__2016__
 
 : Wan, Linlin. *Copyleft and creativity*. Communications Double Major. 
 __2016__
@@ -454,6 +528,9 @@ __2015__
 __2014__
 
 #### Supervisor
+: Cuica, Aniela. *Modular content: a new publishing strategy at the Continuing Legal Education Society of British Columbia*. Master in Publishing. SFU. 
+__2017__
+
 : Firlotte, Molly. *An Analysis Of Outreach Strategies In Pursuit Revisiting The Porthole View: Of Market Expansion*. Master in Publishing. SFU.
 __2016__
 
@@ -480,6 +557,10 @@ __2015 - present__
 __2014 - present__
 
 #### Conference Activity
+: Scientific Committee:
+*V Open Science Forum (INFO2018)*, Havana, Cuba
+__2018__
+
 : Scientific Committee:
 *XXI International Conference On Science And Technology Indicators*, Valencia, Spain
 __2016__
@@ -512,11 +593,11 @@ __2010 - present__
 : Technical Editor, *Education Policy Analysis Archives*
 __2008 - present__
 
-#### Reviewer
-: *Nature*, *Information Research*, *Publications*, *Aslib Proceedings (2)*, *Scientometrics*, *Scholarly and Research Communication (4)*, *Palabra Clave (2)*, *Education Policy Analysis Archives*, *Revista Facultad de Odontología*
+#### Reviewer (last 2 years)
+: *eLife*, *Scientometrics (3)*, *TLA-MELAUA*, *Nature*, *Science and Public Policy (2)*, *Information Research*, *Publications*, *Aslib Proceedings (2)*, *Scholarly and Research Communication (4)*, *Palabra Clave (2)*, *Education Policy Analysis Archives*, *Revista Facultad de Odontología*
 
 #### Memberships
-: SPARC Student Advisory Group, CrossRef DOI Event Tracker Committee, OOO Canada
+: Metadata 2020 Working Group, BOAI 15 Working group, SPARC Student Advisory Group, CrossRef DOI Event Tracker Committee, OOO Canada
 
 --------
 ### Departmental Service {#departmentalservice .singlespace.noheading}
@@ -525,9 +606,9 @@ __2008 - present__
 __2015 - present__
 
 : Open Access Advisory
-__2014 - present__
+__2014 - 2016__
 
-: Three faculty search committees
+: Faculty search committees (3)
 __2014 - present__
 
 : All program committees
@@ -536,6 +617,24 @@ __2014 - present__
 --------
 ### Media Coverage {#mediacoverage .singlespace.noheading}
 &nbsp;
+: *Nature News* Half of papers searched for online are free to read. [link](http://www.nature.com/news/half-of-papers-searched-for-online-are-free-to-read-1.22418)
+__Aug. 7, 2017__
+
+: *The Scientist* Open Access On the Rise: Study (Interview with co-author). [link](http://www.the-scientist.com/?articles.view/articleNo/50027/title/Open-Access-On-the-Rise--Study/)
+__Aug. 7, 2017__
+
+: *Open and Shut?* The State of Open Access: Some New Data (Interview with co-author). [link](http://poynder.blogspot.ca/2017/08/the-state-of-open-access-some-new.html)
+__Aug. 3, 2017__
+
+: *Nature* Trend Watch: The State of Open Access. [link](https://www.nature.com/news/exomoon-candidate-fake-peer-review-and-a-telescope-problem-1.22389)
+__Aug. 2, 2017__ 
+
+: *Revista Anfibia (Universidad Nacional de San Martin)*. Los Dueños de la ciencia. [link](http://www.revistaanfibia.com/ensayo/los-duenos-de-la-ciencia/)
+__May, 2017__
+
+: *Copyright Chat*. University of Illinois at Urbana-Champaign podcast. [link](http://www.stitcher.com/podcast/copyright-chat/e/50165849)
+__Mar. 17, 2017__
+
 : *CONACYT Prensa*. ¿Cuál es el impacto social de las revistas científicas?
 [link](http://www.conacytprensa.mx/index.php/sociedad/politica-cientifica/5786-debate-sobre-el-impacto-social-de-las-revistas-cientificas-nota-fil)
 __Mar. 2, 2016__
