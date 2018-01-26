@@ -1,3 +1,18 @@
+/*div.altmetric-embed > a {
+  text-indent: 0px;
+  float: right;
+  margin-right:20px;
+  position: relative;
+  margin-bottom: .5em;
+}
+
+.google-scholar {
+	float: right;
+	position: relative;
+	left: -20px;
+	margin-bottom: .5em;
+}*/
+
 div.altmetric-embed > a {
   text-indent: 0px;
   float: right;
@@ -9,14 +24,14 @@ div.altmetric-embed > a {
 .google-scholar {
 	float: right;
 	position: relative;
-	left: -10px;
+	left: -30px;
 	margin-bottom: .5em;
 }
 
 .google-scholar img {
 	border: 1px solid lightgrey;
 	position: relative;
-	height: 13px;
+	height: 11px;
 	padding: 3px 3px 2px 3px;
 }
 
@@ -25,14 +40,14 @@ div.altmetric-embed > a {
 }
 
 .metricbubble {
-   padding: .2em 1.2em .2em 1.2em;
+   padding: .1em 1.2em .2em 1.2em;
    height: 18px;
    position: relative;
-   top: -.1em;
-   left: 35px;
+   top: -.4em;
+   left: 33px;
    border: 1px solid lightgrey;
    font-family: arial;
-   font-size: .7em;
+   font-size: .6em;
    /*color: darkgrey;*/
    background-color: white;
 }
